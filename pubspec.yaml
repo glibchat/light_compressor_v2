@@ -1,0 +1,27 @@
+name: light_compressor_v2
+description: A powerful and easy-to-use video compression plugin for Flutter.
+version: 2.2.0
+
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.abedelazizshe.light_compressor
+        pluginClass: LightCompressorPlugin
+      ios:
+        pluginClass: LightCompressorPlugin
+      macos:
+        pluginClass: LightCompressorPlugin
