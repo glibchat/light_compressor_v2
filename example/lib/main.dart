@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-
-import 'package:light_compressor_example/utils/file_utils.dart';
-import 'package:light_compressor_example/video_player.dart';
 import 'package:light_compressor_v2/light_compressor_v2.dart';
+
+import 'utils/file_utils.dart';
+import 'video_player.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,8 +14,10 @@ void main() {
 
 /// A widget that uses LightCompressor library to compress videos
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -108,7 +110,8 @@ class _MyAppState extends State<MyApp> {
                           onPressed: () => Navigator.push<dynamic>(
                                 context,
                                 MaterialPageRoute<dynamic>(
-                                  builder: (_) => VideoPlayerScreen(_desFile),
+                                  builder: (_) =>
+                                      VideoPlayerScreen(path: _desFile),
                                 ),
                               ),
                           child: const Text('Play Video')),
@@ -122,9 +125,10 @@ class _MyAppState extends State<MyApp> {
           ),
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () => _pickVideo(),
+            foregroundColor: Colors.white,
             label: const Text('Pick Video'),
             icon: const Icon(Icons.video_library),
-            backgroundColor: const Color(0xFFA52A2A),
+            backgroundColor: const Color(0xFF377FC2),
           ),
         ),
       );
