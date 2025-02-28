@@ -1,5 +1,3 @@
-package android
-
 group 'com.gurfdev.light_compressor_v2'
 version '1.0'
 
@@ -11,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.4.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
