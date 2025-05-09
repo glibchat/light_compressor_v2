@@ -180,7 +180,31 @@ public struct LightCompressor {
             
             videoReader?.add(videoReaderOutput)
             //setup audio writer
-            let audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: nil)
+            let audioWriterInput: AVAssetWriterInput
+            // Check if audio needs to be reencoded to AAC
+            if let audioTrack = videoAsset.tracks(withMediaType: AVMediaType.audio).first {
+                if let audioFormat = audioTrack.formatDescriptions.first {
+                    let formatDescription = audioFormat as! CMFormatDescription
+                    let audioFormatType = CMFormatDescriptionGetMediaSubType(formatDescription)
+                    
+                    // If not AAC, set specific settings to reencode to AAC
+                    if audioFormatType != kAudioFormatMPEG4AAC {
+                        let audioSettings: [String: Any] = [
+                            AVFormatIDKey: kAudioFormatMPEG4AAC,
+                            AVSampleRateKey: 44100,
+                            AVNumberOfChannelsKey: 2,
+                            AVEncoderBitRateKey: 128000
+                        ]
+                        audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: audioSettings)
+                    } else {
+                        audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: nil)
+                    }
+                } else {
+                    audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: nil)
+                }
+            } else {
+                audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: nil)
+            }
             audioWriterInput.expectsMediaDataInRealTime = false
             videoWriter?.add(audioWriterInput)
             //setup audio reader
